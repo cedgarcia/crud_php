@@ -55,12 +55,55 @@ class crudController extends Crud{
     }
 
 	function registeruser(){
-		$data = array(
-					'name' 		=> $_REQUEST['name'],
-					'last_name' => $_REQUEST['last_name'],
-					'email'		=> $_REQUEST['email']
-					);		
+		$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = [
+                'name' => trim($_POST['name']),
+                'last_name' => trim($_POST['last_name']),
+				'email'		=> $_POST['email'],
+
+				'name_err'=>'',
+				'last_name_err'=>'',
+             
+            ];
+
+			// validation
+			if(empty($data['name'])){
+                $data['name_err'] = 'Enter your Name';
+            }
+            if(empty($data['last_name'])){
+                $data['last_name_err'] = 'Enter your Lastname';
+            }
+
+	
+
+        // validation
+            if(empty($data['name_err']) && empty($data['last_name_err'])){
+                if(parent::set_register_user($data)){
+                    flash('post_message', 'data added');
+                }else{
+                    die('something went wrong');
+                }
+               
+            }else{
 					parent::set_register_user($data);		
+	}
+
+
+			}else{
+            $data = [
+                'name' => (isset($_POST['name']) ? trim($_POST['name']) : ''),
+                'last_name' =>  (isset($_POST['last_name'])? trim($_POST['last_name']) : '')
+            ];
+
+					parent::set_register_user($data);		
+	}
+		// $data = array(
+		// 			'name' 		=> $_REQUEST['name'],
+		// 			'last_name' => $_REQUEST['last_name'],
+		// 			'email'		=> $_REQUEST['email']
+		// 			);		
+		// 			parent::set_register_user($data);		
     }    
     
 	function updateuser(){
