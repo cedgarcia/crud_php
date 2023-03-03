@@ -14,7 +14,7 @@ if ($_SERVER['SERVER_NAME'] == "192-96-216-94.cprapid.com") {
 } else if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     define('DB_HOST', 'localhost');
-    define('DB_NAME', 'new_crud_db');
+    define('DB_NAME', 'crud-api-db');
     define('DB_USER', 'root');
     define('DB_PASS', '');}
 

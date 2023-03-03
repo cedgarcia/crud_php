@@ -1,45 +1,70 @@
 <?php
 
-class Crud extends Database{
+class Crud
+{
+	private $db;
+    public function __construct()
+    {
+        $this->db = new Database;
+    }	
 	
-	private function view_users(){
-		try {
-			$SQL = "SELECT * FROM users";
-			$result = $this->connect()->prepare($SQL);
-			$result->execute();
-			return $result->fetchAll(PDO::FETCH_OBJ);	
-		} catch (Exception $e) {
-			die('Error Administrator(view_users) '.$e->getMessage());
-		} finally{
-			$result = null;
-		}
+	
+	public function view_users()
+	{
+	$this->db->query('SELECT * FROM users');
+	$result = $this->db->resultSet();
+	return $result;
 	}
 
-	function get_view_users(){
-		return $this->view_users();
-	}
+	
+	
+	public function register_users($data){
 
-	private function register_users($data){
-		try {
-			$SQL = 'INSERT INTO users (name_user,last_name_user,email_user) VALUES (?,?,?)';
-			$result = $this->connect()->prepare($SQL);
-			$result->execute(array(
-									$data['name'],
-									$data['last_name'],
-									$data['email']
-									)
-							);			
-		} catch (Exception $e) {
-			die('Error Administrator(register_users) '.$e->getMessage());
-		} finally{
-			$result = null;
-		}
+		// $this->db->query('INSERT INTO users (name_user,last_name_user,email_user) VALUES (:name_user, :last_name_user, :emai_user)');
+		$this->db->query('INSERT INTO users (name_user,last_name_user,email_user) VALUES (?,?,?)');
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':email', $data['email']);
+        
+        //execute 
+        // if($this->db->execute()){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+		$this->db->execute(array(
+										$data['name'],
+										$data['last_name'],
+										$data['email']
+										)
+								);	
+
+
+		// try {
+		// 	$SQL = 'INSERT INTO users (name_user,last_name_user,email_user) VALUES (?,?,?)';
+		// 	$result = $this->connect()->prepare($SQL);
+		// 	$result->execute(array(
+		// 							$data['name'],
+		// 							$data['last_name'],
+		// 							$data['email']
+		// 							)
+		// 					);		
+							
+		// 				// $result =	$this->register_users($data);
+		// 				} catch (Exception $e) {
+		// 	die('Error Administrator(register_users) '.$e->getMessage());
+		// } finally{
+		// 	$result = null;
+		// 	// $result = $this->register_users($data);
+		// 	// rxeturn $result;
+			
+		// }
 	}
 
 	function set_register_user($data){
 		$this->register_users($data);
 	}
-
+	
 	private function update_user($data){
 		try {
 			$SQL = 'UPDATE users SET name_user = ?, last_name_user = ?, email_user = ? WHERE id_user = ?';
