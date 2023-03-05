@@ -7,11 +7,12 @@ class Validation {
     // Loop through post data and sanitize each value
     foreach ($post as $key => $value) {
       $sanitizedValue = Sanitize::sanitizeString($value);
-      
+      $sanitizedValue = Sanitize::trimWhitespace($value);
+      $sanitizedValue = Sanitize::removeMultipleSpaces($value);
       if (Sanitize::isEmptyString($string)) {
-        echo "The string is empty.";
+        flash('success_message', 'Your post have been added');
       } else {
-        echo "The string is not empty.";
+        flash('success_message', 'Your post have been added');
       }
       // If value is an email, also validate it
       if ($key === 'email') {

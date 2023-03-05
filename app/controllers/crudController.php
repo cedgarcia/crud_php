@@ -6,17 +6,17 @@ require_once('app/libs/Validation.php');
 require_once('app/libs/Sanitize.php');
 
 
-class crudController extends controller{
+class crudController extends Crud{
 
-	public function __construct()
-    {
-        // if(!isLoggedIn()){
-        //     redirect('users/login');
-        // }
-        //new model instance
-        $this->crudModel = $this->model('Crud');
-        // $this->userModel = $this->model('User');
-    }
+	// public function __construct()
+    // {
+    //     // if(!isLoggedIn()){
+    //     //     redirect('users/login');
+    //     // }
+    //     //new model instance
+    //     $this->crudModel = $this->model('Crud');
+    //     // $this->userModel = $this->model('User');
+    // }
 
   
 
@@ -36,10 +36,10 @@ class crudController extends controller{
 	}
 
 	function table_users(){
-		$allData = $this->crudModel->view_users();
-        $data = [
-            'allData' => $allData
-        ];
+		// $allData = $this->crudModel->view_users();
+        // $data = [
+        //     'allData' => $allData
+        // ];
 
 		?>
 		<table class="table table-bordered">
@@ -53,8 +53,10 @@ class crudController extends controller{
 				</tr>
 			</thead>
 			<tbody >		
-		<?php // foreach (parent::get_view_users()	as $data) {?>
-			<?php foreach ($data['allData'] as $data) { ?>
+		<?php  
+		foreach (parent::get_view_users()	as $data) {
+			?>
+			<!-- <?php // foreach ($data['allData'] as $data) { ?> -->
 
 
 		<tr>
@@ -88,23 +90,33 @@ class crudController extends controller{
 
 	
 	function registeruser(){
-	
-		$allData = $this->crudModel->view_users();
-        $data = [
-            'allData' => $allData
-        ];
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-		$data = array(
-			'name' 		=> $_REQUEST['name'],
-			'last_name' => $_REQUEST['last_name'],
-			'email'		=> $_REQUEST['email']
-			);		
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = [
+					'name' 		=>trim($_POST['name']),
+					'last_name' => trim($_POSIT['last_name']),
+					// 'email'		=> $_REQUEST['email']
+                // 'title' => trim($_POST['title']),
+                // 'body' => trim($_POST['body']),
+                // 'user_id' => $_SESSION['user_id'],
+                // 'title_err' => '',
+                'err' => '',
+            ];}
+			else{
+
+			}
+			// $data = array(
+			// 		'name' 		=> $_REQUEST['name'],
+			// 		'last_name' => $_REQUEST['last_name'],
+			// 		'email'		=> $_REQUEST['email']
+			// 		);		
 
 		$sanitizedData = Validation::sanitizeAndValidate($data);
 		if (!$sanitizedData) {
-			echo 'Invalid data.';
+        // flash('success_message', 'Your post have been added');
 		} else {
-			$this->set_register_user($sanitizedData);
+			parent::set_register_user($sanitizedData);
 			// $this->crudModel->register_users($sanitizedData);	
 		}
     }    

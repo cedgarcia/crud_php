@@ -12,6 +12,7 @@
                   <i class="glyphicon glyphicon-user"></i>
                 </span>
                 <input id="name" type="text" class="form-control" name="name" placeholder="First Name" required autocomplete="off">
+                <?php echo (!empty($data['err'])) ? 'is-invalid' : '' ;?>
               </div>
               <br>
               <div class="input-group">
