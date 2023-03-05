@@ -14,7 +14,8 @@ class Crud extends Database
 			$result = null;
 		}
 	}
-	public function register_users($data){	
+
+	private function register_users($data){	
 		try {
 			$SQL = 'INSERT INTO users (name_user,last_name_user,email_user) VALUES (?,?,?)';
 			$result = $this->connect()->prepare($SQL);
@@ -30,6 +31,7 @@ class Crud extends Database
 			$result = null;			
 		}
 	}
+
 	private function update_user($data){
 		try {
 			$SQL = 'UPDATE users SET name_user = ?, last_name_user = ?, email_user = ? WHERE id_user = ?';
@@ -47,6 +49,7 @@ class Crud extends Database
 			$result = null;
 		}
 	}	
+	
 	private function delete_user($id){
 		try {
 			$SQL = 'DELETE FROM users WHERE id_user = ?';

@@ -11,24 +11,23 @@
                 <span class="input-group-addon">
                   <i class="glyphicon glyphicon-user"></i>
                 </span>
-                <input id="name" type="text" class="form-control" name="name" placeholder="First Name" required autocomplete="off">
-                <?php echo (!empty($data['err'])) ? 'is-invalid' : '' ;?>
+                <input id="name" type="text" class="form-control" name="name" placeholder="First Name"  autocomplete="off">
               </div>
               <br>
               <div class="input-group">
                 <span class="input-group-addon">
                   <i class="glyphicon glyphicon-user"></i>
                 </span>
-                <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Last Name" required autocomplete="off">
+                <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Last Name"  autocomplete="off">
               </div>
               <br>
               <div class="input-group">
                 <span class="input-group-addon">
                   <i class="glyphicon glyphicon-envelope"></i>
                 </span>
-                <input id="email" type="email" class="form-control" name="email" onkeydown="validation()" placeholder="Email" required autocomplete="off">
-                <span id='text'></span>
+                <input id="email" type="email" class="form-control" name="email" onkeydown="validation()" placeholder="Email" autocomplete="off">
               </div>
+              <!-- <span id='text'></span> -->
 			</div>
 			<div class="modal-footer">
 				<button id="registerbutton" type="submit" class="btn btn-success">Register</button>

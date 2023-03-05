@@ -37,15 +37,7 @@ function register() {
   email = document.formUser.email.value;
   ajax = objectAjax();
   ajax.open("POST", "?c=crud&m=registeruser", true);
-  ajax.onreadystatechange = function () {
-    if (ajax.readyState == 4) {
-      read();
-      alert("succesfully added");
-      $("#addUser").modal("hide");
-    } else {
-      alert("not succesful");
-    }
-  };
+
   ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   ajax.send("name=" + name + "&last_name=" + last_name + "&email=" + email);
 }
@@ -57,12 +49,7 @@ function update() {
   email = document.formUserUpdate.email.value;
   ajax = objectAjax();
   ajax.open("POST", "?c=crud&m=updateuser", true);
-  ajax.onreadystatechange = function () {
-    if (ajax.readyState == 4) {
-      read();
-      $("#updateUser").modal("hide");
-    }
-  };
+
   ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   ajax.send(
     "name=" + name + "&last_name=" + last_name + "&email=" + email + "&id=" + id

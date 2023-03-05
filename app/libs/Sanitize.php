@@ -13,10 +13,7 @@ class Sanitize {
   // If empty string
   public static function isEmptyString($string) {
     if (empty($string)) {
-
-    
-        $string['err'] = 'Please enter';
-    
+header("Location: ../index.php?signup=empty");
 
     } else {
       return false;

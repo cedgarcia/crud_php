@@ -1,6 +1,5 @@
 <?php
 
-// // require_once('Validator.php');
 require_once('app/model/Crud.php');
 require_once('app/libs/Validation.php');
 require_once('app/libs/Sanitize.php');
@@ -8,24 +7,6 @@ require_once('app/libs/Sanitize.php');
 
 class crudController extends Crud{
 
-	// public function __construct()
-    // {
-    //     // if(!isLoggedIn()){
-    //     //     redirect('users/login');
-    //     // }
-    //     //new model instance
-    //     $this->crudModel = $this->model('Crud');
-    //     // $this->userModel = $this->model('User');
-    // }
-
-  
-
-	// function __construct()
-	// {
-	// 	// $this->args = $_REQUEST;
-	// 	// $this->validate = $this->libs('validation');
-	// 	$this->Model = $this->Model('Crud');
-	// }
 	function index(){
 	
 		require_once('app/views/header.php');
@@ -36,10 +17,6 @@ class crudController extends Crud{
 	}
 
 	function table_users(){
-		// $allData = $this->crudModel->view_users();
-        // $data = [
-        //     'allData' => $allData
-        // ];
 
 		?>
 		<table class="table table-bordered">
@@ -56,9 +33,6 @@ class crudController extends Crud{
 		<?php  
 		foreach (parent::get_view_users()	as $data) {
 			?>
-			<!-- <?php // foreach ($data['allData'] as $data) { ?> -->
-
-
 		<tr>
 			<td><?php echo $data->id_user; ?> </td>
 			<td><?php echo $data->name_user; ?> </td>
@@ -87,8 +61,6 @@ class crudController extends Crud{
 			parent::set_delete_user($_REQUEST['id']);		
     }
 
-
-	
 	function registeruser(){
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -102,7 +74,16 @@ class crudController extends Crud{
                 // 'user_id' => $_SESSION['user_id'],
                 // 'title_err' => '',
                 'err' => '',
-            ];}
+            ];
+		
+			if(empty($data['name'])){
+                $data['err'] = 'Please enter post title';
+            }
+            if(empty($data['last_name'])){
+                $data['err'] = 'Please enter the post content';
+            }
+
+		}
 			else{
 
 			}
