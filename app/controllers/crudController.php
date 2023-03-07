@@ -1,11 +1,15 @@
 <?php
+require_once('app/core/controller.php');
 
 require_once('app/model/Crud.php');
 require_once('app/libs/Validation.php');
 require_once('app/libs/Sanitize.php');
 
+// require_once('SanitizationAndValidation.php');
 
-class crudController extends Crud{
+// $sanitizer = new SanitizationAndValidation();
+
+class crudController extends Controller {
 
 	function index(){
 	
@@ -17,6 +21,7 @@ class crudController extends Crud{
 	}
 
 	function table_users(){
+		$crud_table = $this->model('Crud');
 
 		?>
 		<table class="table table-bordered">
@@ -31,7 +36,10 @@ class crudController extends Crud{
 			</thead>
 			<tbody >		
 		<?php  
-		foreach (parent::get_view_users()	as $data) {
+		foreach (
+			$c_table = $crud_table->view_users()
+			// Crud::view_users()	
+			as $data) {
 			?>
 		<tr>
 			<td><?php echo $data->id_user; ?> </td>
@@ -57,61 +65,42 @@ class crudController extends Crud{
 	<?php	
     }
     
-	function deleteuser(){		
-			parent::set_delete_user($_REQUEST['id']);		
+	function deleteuser(){	
+		$crud_table = $this->model('Crud');
+		$c_table = $crud_table->delete_user($_REQUEST['id']);
+			// Crud::delete_user($_REQUEST['id']);
     }
 
 	function registeruser(){
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		$crud_table = $this->model('Crud');
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $data = [
-					'name' 		=>trim($_POST['name']),
-					'last_name' => trim($_POSIT['last_name']),
-					// 'email'		=> $_REQUEST['email']
-                // 'title' => trim($_POST['title']),
-                // 'body' => trim($_POST['body']),
-                // 'user_id' => $_SESSION['user_id'],
-                // 'title_err' => '',
-                'err' => '',
-            ];
-		
-			if(empty($data['name'])){
-                $data['err'] = 'Please enter post title';
-            }
-            if(empty($data['last_name'])){
-                $data['err'] = 'Please enter the post content';
-            }
-
-		}
-			else{
-
-			}
-			// $data = array(
-			// 		'name' 		=> $_REQUEST['name'],
-			// 		'last_name' => $_REQUEST['last_name'],
-			// 		'email'		=> $_REQUEST['email']
-			// 		);		
+			$data = array(
+					'name' 		=> $_REQUEST['name'],
+					'last_name' => $_REQUEST['last_name'],
+					'email'		=> $_REQUEST['email']
+					);		
 
 		$sanitizedData = Validation::sanitizeAndValidate($data);
 		if (!$sanitizedData) {
-        // flash('success_message', 'Your post have been added');
 		} else {
-			parent::set_register_user($sanitizedData);
-			// $this->crudModel->register_users($sanitizedData);	
+			$c_table= $crud_table->register_users($sanitizedData);
+						// Crud::register_users($sanitizedData);
+
+	
 		}
     }    
-
-
-
 	function updateuser(){
+		$crud_table = $this->model('Crud');
+
 		$data = array(
 					'id'		=> $_REQUEST['id'],
 					'name' 		=> $_REQUEST['name'],
 					'last_name' => $_REQUEST['last_name'],
 					'email'		=> $_REQUEST['email']
 					);		
-			parent::set_update_user($data);		
+			$c_table=$crud_table->update_user($data);	
+						// Crud::update_user($data);
+	
 	}    
     
 }

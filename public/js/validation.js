@@ -1,6 +1,6 @@
 function validation() {
   var form = document.getElementById("form");
-  var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var email = document.getElementById("email").value;
   var text = document.getElementById("text");
   var register = document.getElementById("registerbutton");

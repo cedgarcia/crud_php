@@ -11,23 +11,6 @@ class Sanitize {
     return $string;
   }
   // If empty string
-  public static function isEmptyString($string) {
-    if (empty($string)) {
-header("Location: ../index.php?signup=empty");
-
-    } else {
-      return false;
-    }
-  }
-  public static function trimWhitespace($string) {
-    $string = trim($string);
-    return $string;
-  }
-  
-  public static function removeMultipleSpaces($string) {
-    $string = preg_replace('/\s+/', ' ', $string);
-    return $string;
-  }
   
 
 

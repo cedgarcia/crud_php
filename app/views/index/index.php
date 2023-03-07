@@ -1,3 +1,4 @@
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -9,8 +10,11 @@
 			<br>
 		<div id="information">
 			<button onclick="read();"></button>
+
+
+
+
 		</div>			
 		</div>
 	</div>
 </div>
-

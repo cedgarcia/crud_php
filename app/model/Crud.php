@@ -2,7 +2,7 @@
 
 class Crud extends Database
 {
-	private function view_users(){
+	public function view_users(){
 		try {
 			$SQL = "SELECT * FROM users";
 			$result = $this->connect()->prepare($SQL);
@@ -15,7 +15,7 @@ class Crud extends Database
 		}
 	}
 
-	private function register_users($data){	
+	public function register_users($data){	
 		try {
 			$SQL = 'INSERT INTO users (name_user,last_name_user,email_user) VALUES (?,?,?)';
 			$result = $this->connect()->prepare($SQL);
@@ -32,7 +32,7 @@ class Crud extends Database
 		}
 	}
 
-	private function update_user($data){
+	public function update_user($data){
 		try {
 			$SQL = 'UPDATE users SET name_user = ?, last_name_user = ?, email_user = ? WHERE id_user = ?';
 			$result = $this->connect()->prepare($SQL);
@@ -50,7 +50,7 @@ class Crud extends Database
 		}
 	}	
 	
-	private function delete_user($id){
+	public function delete_user($id){
 		try {
 			$SQL = 'DELETE FROM users WHERE id_user = ?';
 			$result = $this->connect()->prepare($SQL);
@@ -60,22 +60,5 @@ class Crud extends Database
 		} finally{
 			$result = null;
 		}
-	}
-	
-	
-
-
-
-	function set_register_user($data){
-		$this->register_users($data);
-	}
-	function set_update_user($data){
-		$this->update_user($data);
-	}
-	function set_delete_user($id){
-		$this->delete_user($id);
-	}	
-	function get_view_users(){
-		return $this->view_users();
 	}
 }

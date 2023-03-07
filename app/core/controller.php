@@ -9,4 +9,5 @@
       // Instatiate model
       return new $model();
     }
+     
   }
